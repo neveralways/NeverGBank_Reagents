@@ -1,2 +1,2 @@
-# wow-guild-bank-deposit
-Guild Bank Reagent Deposit
+# Guild Bank Reagent Deposit
+World of Warcraft addon to deposit all reagents from the bags into the Guild Bank
