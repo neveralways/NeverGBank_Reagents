@@ -1,0 +1,9 @@
+## Interface: 90205
+## Title: Never Guild Bank Reagents
+## Version: 0.0.1
+## Notes: Deposit Reagents in Guild Bank
+## Author: Neveralways
+
+Utils.lua
+NeverGBank_Reagents.lua
+
