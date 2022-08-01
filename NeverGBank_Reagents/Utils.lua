@@ -4,7 +4,7 @@ ns.utils = utils
 
 local GUILD_BANK_TAB_SLOTS = 98
 
--- Get first slot available in the specified Guild Bank tab
+-- Check if the item fit in the Guild Bank
 -- @return -1 if not found, > 0 if found
 function utils.fitItemGuildBank(tab, searchItemLink, itemStackCount, bagsCount)
     local itemSlot = -1
