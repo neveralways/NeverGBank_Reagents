@@ -18,7 +18,6 @@ local function DepositReagents()
         
         -- Navigate through the bags
         for i = 0, 4 do
-            print(i)
             local numBagSlots = C_Container.GetContainerNumSlots(i)
             for j = 1, numBagSlots do
                 local itemID = C_Container.GetContainerItemID(i, j)
