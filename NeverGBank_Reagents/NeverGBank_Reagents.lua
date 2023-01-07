@@ -18,9 +18,10 @@ local function DepositReagents()
         
         -- Navigate through the bags
         for i = 0, 4 do
-            local numBagSlots = GetContainerNumSlots(i)
+            print(i)
+            local numBagSlots = C_Container.GetContainerNumSlots(i)
             for j = 1, numBagSlots do
-                local itemID = GetContainerItemID(i, j)
+                local itemID = C_Container.GetContainerItemID(i, j)
                 if itemID ~= nil then
                     -- Get item info
                     local itemName, itemLink, itemQuality, itemLevel, itemMinLevel, itemType, itemSubType,
@@ -35,9 +36,8 @@ local function DepositReagents()
                         local count = GetItemCount(itemID, false, false)
                         local guildBankItemSlot = utils.fitItemGuildBank(guildBankTab, itemLink, itemStackCount, count)
                         if guildBankItemSlot > 0 then
-                        -- Store the item
-                            
-                            UseContainerItem(i, j)
+                            -- Store the item
+                            C_Container.UseContainerItem(i, j)
                             C_Timer.After(0.1, DepositReagents)
                             return
                         end
@@ -53,23 +53,29 @@ end
 -- ------------------------------------------------------------------------------------------------------------------------------------------------
 local function OnEvent(self, event, ...)
     if IsInGuild() then
-        if ( event == "GUILDBANKFRAME_OPENED" ) then
-            depositReagentsBtn:Show()
-            stop = false
-        elseif ( event == "GUILDBANKFRAME_CLOSED") then
-            depositReagentsBtn:Hide()
-            stop = true
+        if ( event == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW" ) then
+            local type = ...
+            if type == 10 then
+                depositReagentsBtn:Show()
+                stop = false
+            end
+        elseif ( event == "PLAYER_INTERACTION_MANAGER_FRAME_HIDE") then
+            local type = ...
+            if type == 10 then
+                depositReagentsBtn:Hide()
+                stop = true
+            end
         end
     end
 end
 -- ------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- ------------------------------------------------------------------------------------------------------------------------------------------------
-local f = CreateFrame("Frame", nil, UIParent)
+local f = CreateFrame("Frame")
 
 f:SetScript("OnEvent", OnEvent)
-f:RegisterEvent("GUILDBANKFRAME_OPENED")
-f:RegisterEvent("GUILDBANKFRAME_CLOSED")
+f:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_SHOW")
+f:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_HIDE")
 -- ------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- Button frame
