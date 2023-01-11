@@ -10,14 +10,19 @@ local function DepositReagents()
     -- Stop if Guild Bank frame is closed
     if stop then return end
     
+    local numBags = 4
     local guildBankTab = GetCurrentGuildBankTab()
     local name, icon, isViewable, canDeposit, numWithdrawals, remainingWithdrawals = GetGuildBankTabInfo(guildBankTab)
 
     -- Check deposit permissions
     if canDeposit or IsGuildLeader(UnitName("player")) then
         
+        if cbComponentsContainer:GetChecked() == true then
+            numBags = 5
+        end
+
         -- Navigate through the bags
-        for i = 0, 4 do
+        for i = 0, numBags do
             local numBagSlots = C_Container.GetContainerNumSlots(i)
             for j = 1, numBagSlots do
                 local itemID = C_Container.GetContainerItemID(i, j)
@@ -50,16 +55,32 @@ end
 
 -- OnEvent
 -- ------------------------------------------------------------------------------------------------------------------------------------------------
-local function OnEvent(self, event, ...)
+local function OnEvent(self, event, arg1)
+
+    
+    if event == "ADDON_LOADED" and arg1 == "NeverGBank_Reagents" then
+        -- Load variable
+        
+        if UseComponentsContainer == nil then
+            -- Never established
+            UseComponentsContainer = false
+        end
+
+        cbComponentsContainer:SetChecked(UseComponentsContainer)
+        
+    elseif event == "PLAYER_LOGOUT" then
+        UseComponentsContainer = cbComponentsContainer:GetChecked()
+    end
+
     if IsInGuild() then
         if ( event == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW" ) then
-            local type = ...
+            local type = arg1
             if type == 10 then
                 depositReagentsBtn:Show()
                 stop = false
             end
         elseif ( event == "PLAYER_INTERACTION_MANAGER_FRAME_HIDE") then
-            local type = ...
+            local type = arg1
             if type == 10 then
                 depositReagentsBtn:Hide()
                 stop = true
@@ -75,6 +96,8 @@ local f = CreateFrame("Frame")
 f:SetScript("OnEvent", OnEvent)
 f:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_SHOW")
 f:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_HIDE")
+f:RegisterEvent("ADDON_LOADED")
+f:RegisterEvent("PLAYER_LOGOUT")
 -- ------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- Button frame
@@ -126,3 +149,19 @@ end
 
 depositReagentsTooltip:Hide();
 -- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- Create panel in game options panel
+-- ------------------------------------------------------------------------------------------------------------------------------------------------
+
+local optionsPanel = CreateFrame("Frame")
+optionsPanel.name = "NeverGBank Reagents " .. GetAddOnMetadata("NeverGBank_Reagents", "Version")
+InterfaceOptions_AddCategory(optionsPanel)
+
+local title = optionsPanel:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
+title:SetPoint("TOP")
+title:SetText(optionsPanel.name)
+
+cbComponentsContainer = CreateFrame("CheckButton", "cbComponentsContainer", optionsPanel, "ChatConfigCheckButtonTemplate");
+cbComponentsContainer:SetPoint("TOPLEFT", 50, -65);
+cbComponentsContainerText:SetText("Use Components Container")

@@ -3,6 +3,7 @@
 ## Version: 1.0.1
 ## Notes: Deposit Reagents in Guild Bank
 ## Author: Neveralways
+## SavedVariablesPerCharacter: UseComponentsContainer
 
 Utils.lua
 NeverGBank_Reagents.lua
