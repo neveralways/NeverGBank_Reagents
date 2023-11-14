@@ -1,4 +1,4 @@
-## Interface: 100107
+## Interface: 100200
 ## Title: Never Guild Bank Reagents
 ## Version: 1.1.0
 ## Notes: Deposit Reagents in Guild Bank
