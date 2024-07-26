@@ -156,7 +156,11 @@ depositReagentsTooltip:Hide();
 
 local optionsPanel = CreateFrame("Frame")
 optionsPanel.name = "NeverGBank Reagents " .. GetAddOnMetadata("NeverGBank_Reagents", "Version")
-InterfaceOptions_AddCategory(optionsPanel)
+
+if SettingsPanel then
+    local category, layout = Settings.RegisterCanvasLayoutCategory(optionsPanel, "NeverGBank Reagents " .. GetAddOnMetadata("NeverGBank_Reagents", "Version"))
+    Settings.RegisterAddOnCategory(category)
+end
 
 local title = optionsPanel:CreateFontString("ARTWORK", nil, "GameFontNormalLarge")
 title:SetPoint("TOP")
