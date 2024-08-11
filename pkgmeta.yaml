@@ -1,9 +1,9 @@
-package-as: NeverGBankReagents
+package-as: NeverGBank_Reagents
 
 enable-nolib-creation: no
 
 move-folders:
-  NeverGBankReagents/src: NeverGBankReagents
+  NeverGBank_Reagents/src: NeverGBank_Reagents
 
 ignore:
   - README.md
