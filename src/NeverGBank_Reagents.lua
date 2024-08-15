@@ -155,10 +155,10 @@ depositReagentsTooltip:Hide();
 -- ------------------------------------------------------------------------------------------------------------------------------------------------
 
 local optionsPanel = CreateFrame("Frame")
-optionsPanel.name = "NeverGBank Reagents " .. GetAddOnMetadata("NeverGBank_Reagents", "Version")
+optionsPanel.name = "NeverGBank Reagents " .. C_AddOns.GetAddOnMetadata("NeverGBank_Reagents", "Version")
 
 if SettingsPanel then
-    local category, layout = Settings.RegisterCanvasLayoutCategory(optionsPanel, "NeverGBank Reagents " .. GetAddOnMetadata("NeverGBank_Reagents", "Version"))
+    local category, layout = Settings.RegisterCanvasLayoutCategory(optionsPanel, "NeverGBank Reagents " .. C_AddOns.GetAddOnMetadata("NeverGBank_Reagents", "Version"))
     Settings.RegisterAddOnCategory(category)
 end
 
