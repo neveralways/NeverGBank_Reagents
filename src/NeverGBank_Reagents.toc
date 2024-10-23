@@ -1,6 +1,6 @@
-## Interface: 110002
+## Interface: 110005
 ## Title: Never Guild Bank Reagents
-## Version: 1.1.3
+## Version: 1.1.4
 ## Notes: Deposit Reagents in Guild Bank
 ## Author: Neveralways
 ## SavedVariablesPerCharacter: UseComponentsContainer
